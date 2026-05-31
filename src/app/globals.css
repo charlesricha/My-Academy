@@ -1,0 +1,105 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-heading: var(--font-space-grotesk);
+
+  --color-accent-primary: #6C63FF;
+  --color-accent-secondary: #00D4FF;
+  --color-accent-success: #00E676;
+  --color-accent-warning: #FFB300;
+  --color-accent-danger: #FF4444;
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --background: #F0F0FF;
+  --foreground: #0A0A0F;
+  --card: #FFFFFF;
+  --card-foreground: #0A0A0F;
+  --popover: #FFFFFF;
+  --popover-foreground: #0A0A0F;
+  --primary: #6C63FF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #00D4FF;
+  --secondary-foreground: #0A0A0F;
+  --muted: #F0F0FF;
+  --muted-foreground: #4A4A6A;
+  --accent: #6C63FF;
+  --accent-foreground: #FFFFFF;
+  --destructive: #FF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #2A2A3E;
+  --input: #2A2A3E;
+  --ring: #6C63FF;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: #0A0A0F;
+  --foreground: #F0F0FF;
+  --card: #111118;
+  --card-foreground: #F0F0FF;
+  --popover: #1A1A2E;
+  --popover-foreground: #F0F0FF;
+  --primary: #6C63FF;
+  --primary-foreground: #F0F0FF;
+  --secondary: #00D4FF;
+  --secondary-foreground: #0A0A0F;
+  --muted: #1A1A2E;
+  --muted-foreground: #9898B0;
+  --accent: #111118;
+  --accent-foreground: #6C63FF;
+  --destructive: #FF4444;
+  --destructive-foreground: #F0F0FF;
+  --border: #2A2A3E;
+  --input: #2A2A3E;
+  --ring: #6C63FF;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}

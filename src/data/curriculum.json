@@ -1,0 +1,216 @@
+{
+  "phases": [
+    {
+      "id": "phase-0",
+      "title": "Foundations & How Computers Work",
+      "description": "Understand what a computer actually does before writing any code.",
+      "duration": "Months 1–2",
+      "modules": [
+        {
+          "id": "week-1",
+          "week": 1,
+          "title": "Binary, Hex, and Logic Gates",
+          "description": "How computers represent data and perform basic operations.",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Real-World Project: Build a Subnet Mask Calculator in C. It must accept an IP address and a CIDR notation, convert them to binary using bitwise operators, and calculate the Network and Broadcast addresses.",
+            "expectedConcepts": ["Binary representation", "Hexadecimal conversion", "Bitwise operations"],
+            "maxScore": 100
+          }
+        },
+        {
+          "id": "week-2",
+          "week": 2,
+          "title": "Memory, Storage, and OS Basics",
+          "description": "Processes, threads, and how the OS manages hardware.",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Real-World Project: Write a program that intentionally triggers a 'Stack Overflow' and another that causes a 'Memory Leak' (Heap exhaustion). Explain exactly what happens at the OS level when these crash.",
+            "expectedConcepts": ["Stack", "Heap", "Text segment", "Data segment"],
+            "maxScore": 100
+          }
+        },
+        {
+          "id": "week-3",
+          "week": 3,
+          "title": "The Terminal & Bash Scripting",
+          "description": "Navigation, Bash scripting, and the power of piping.",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Real-World Project: Build a 'Log Analyzer' Bash script. It must ingest a 10,000-line Apache access log, use grep/awk/sed to find the top 5 IP addresses that caused 404 errors, and output a clean summary.",
+            "expectedConcepts": ["Bash loops", "File extensions", "Moving files", "CLI arguments"],
+            "maxScore": 100
+          }
+        },
+        {
+          "id": "week-4",
+          "week": 4,
+          "title": "Git From Scratch",
+          "description": "Init, commit, branch, and merge fundamentals.",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Real-World Project: Simulate a team disaster. Create a repo, branch off, intentionally create a severe merge conflict in a vital file, resolve it using standard Git tools, and write a post-mortem commit message.",
+            "expectedConcepts": ["Git history", "Branching", "Merge conflicts", "Commit messages"],
+            "maxScore": 100
+          }
+        },
+        {
+          "id": "week-5",
+          "week": 5,
+          "title": "How Compilers Work",
+          "description": "Tokenizing, parsing, and Abstract Syntax Trees (AST).",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Real-World Project: Write a simple Lexer/Tokenizer in C or Python that takes a mathematical equation (e.g., '5 + (10 * 2)') and breaks it down into an array of strictly typed Tokens.",
+            "expectedConcepts": ["Lexical analysis", "Syntax analysis", "Semantic analysis", "Code generation"],
+            "maxScore": 100
+          }
+        },
+        {
+          "id": "week-6",
+          "week": 6,
+          "title": "Build Your Own Shell (Part 1)",
+          "description": "Parsing input and handling basic built-in commands.",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Real-World Project: Start your custom C Shell ('csh'). It must display a custom prompt, read infinite user input without crashing on memory limits, and successfully handle the 'exit' and 'help' built-in commands.",
+            "expectedConcepts": ["Input buffer", "String tokenization", "Command loop"],
+            "maxScore": 100
+          }
+        },
+        {
+          "id": "week-7",
+          "week": 7,
+          "title": "Build Your Own Shell (Part 2)",
+          "description": "Executing external commands and piping.",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Real-World Project: Upgrade 'csh'. Implement process forking using 'fork()' and 'execvp()'. It must be able to run standard Linux commands like 'ls -la' and 'pwd'.",
+            "expectedConcepts": ["Process forking", "Execvp", "File descriptors", "Pipes"],
+            "maxScore": 100
+          }
+        },
+        {
+          "id": "week-8",
+          "week": 8,
+          "title": "Phase 0 Final Project",
+          "description": "A full working CLI shell from scratch.",
+          "lessonContent": "Notes coming soon",
+          "assignment": {
+            "prompt": "Phase 0 Final Project: Complete 'csh'. It must now support input/output redirection (>, <) and piping (|) so users can run commands like 'ls -la | grep txt > output.txt'.",
+            "expectedConcepts": ["System calls", "Error handling", "Signal handling", "Environment variables"],
+            "maxScore": 100
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-1",
+      "title": "Core Programming Languages",
+      "description": "Be fluent in C++, Python, and JavaScript at a deep level.",
+      "duration": "Months 3–5",
+      "modules": [
+        { "id": "week-9", "week": 9, "title": "C++: Pointers & References", "assignment": { "prompt": "Real-World Project: Build a high-performance Image Matrix manipulator using raw pointers to invert colors without duplicating the array in memory.", "expectedConcepts": ["Pointer arithmetic", "Memory management", "Pass-by-reference"] } },
+        { "id": "week-10", "week": 10, "title": "C++: OOP Fundamentals", "assignment": { "prompt": "Real-World Project: Build an RPG inventory system. Use inheritance and polymorphism to handle Weapons, Potions, and Armor, calculating total weight and stats.", "expectedConcepts": ["Classes", "Inheritance", "Polymorphism"] } },
+        { "id": "week-11", "week": 11, "title": "C++: Templates & STL", "assignment": { "prompt": "Real-World Project: Build a custom 'Smart Pointer' class template from scratch that mimics std::unique_ptr to prevent memory leaks.", "expectedConcepts": ["Templates", "STL", "Memory Safety"] } },
+        { "id": "week-12", "week": 12, "title": "C++: File I/O & Errors", "assignment": { "prompt": "Real-World Project: Build a robust CSV parser that reads a 100MB dataset, handles malformed rows with custom Exception classes, and outputs a clean JSON file.", "expectedConcepts": ["File streams", "Exception handling", "Data parsing"] } },
+        { "id": "week-13", "week": 13, "title": "Python: Functions & Comprehensions", "assignment": { "prompt": "Real-World Project: Build a Financial Data Cleaner. Use list/dict comprehensions and lambda functions to sanitize messy bank transaction strings into clean numeric floats.", "expectedConcepts": ["Comprehensions", "Lambdas", "Data Sanitization"] } },
+        { "id": "week-14", "week": 14, "title": "Python: OOP & Modules", "assignment": { "prompt": "Real-World Project: Build a modular CLI for managing AWS servers (mocked). Use class-based architecture to separate authentication, server actions, and logging.", "expectedConcepts": ["Python OOP", "Dunder methods", "Module imports"] } },
+        { "id": "week-15", "week": 15, "title": "Python: JSON & Errors", "assignment": { "prompt": "Real-World Project: Build a Configuration Manager that loads from a JSON file, validates schema constraints, and gracefully falls back to default settings if the file is corrupted.", "expectedConcepts": ["JSON parsing", "Validation", "Try/Except"] } },
+        { "id": "week-16", "week": 16, "title": "Python: APIs & Automation", "assignment": { "prompt": "Real-World Project: Build a Slack Bot. Use the 'requests' library to fetch data from the GitHub API and automatically post a daily summary of open Pull Requests to a Slack channel.", "expectedConcepts": ["REST APIs", "Requests library", "Automation"] } },
+        { "id": "week-17", "week": 17, "title": "JS: Event Loop & Closures", "assignment": { "prompt": "Real-World Project: Implement a custom 'debounce' and 'throttle' utility function using closures to optimize a simulated search bar input.", "expectedConcepts": ["Closures", "Event Loop", "Performance optimization"] } },
+        { "id": "week-18", "week": 18, "title": "JS: Promises & Async/Await", "assignment": { "prompt": "Real-World Project: Build a 'Promise.all' polyfill from scratch to deeply understand concurrent execution, then use it to fetch user data from 3 separate mock APIs simultaneously.", "expectedConcepts": ["Async/Await", "Promises", "Concurrency"] } },
+        { "id": "week-19", "week": 19, "title": "JS: DOM Manipulation", "assignment": { "prompt": "Real-World Project: Build a Kanban Board (like Trello) in pure Vanilla JS. Implement drag-and-drop functionality using native DOM events.", "expectedConcepts": ["DOM API", "Event Listeners", "Drag and Drop"] } },
+        { "id": "week-20", "week": 20, "title": "JS: Fetch & Storage", "assignment": { "prompt": "Phase 1 Final Project: Build an offline-first Note Taking app. It must fetch initial data from an API, save changes to LocalStorage, and sync back when the network reconnects.", "expectedConcepts": ["Fetch API", "LocalStorage", "Offline syncing"] } }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "title": "Fullstack Web Development",
+      "description": "Build production-grade web apps from first principles.",
+      "duration": "Months 6–11",
+      "modules": [
+        { "id": "week-21", "week": 21, "title": "HTML Mastery & SEO", "assignment": { "prompt": "Real-World Project: Code a fully semantic, WCAG-compliant landing page for a law firm. Score 100 on Google Lighthouse for Accessibility and SEO.", "expectedConcepts": ["Semantic HTML", "Accessibility (a11y)", "SEO"] } },
+        { "id": "week-22", "week": 22, "title": "CSS Layouts: Flex & Grid", "assignment": { "prompt": "Real-World Project: Recreate the complex grid layout of the Netflix homepage using only CSS Grid and Flexbox (no frameworks).", "expectedConcepts": ["CSS Grid", "Flexbox", "Layout Architecture"] } },
+        { "id": "week-23", "week": 23, "title": "Responsive Design", "assignment": { "prompt": "Real-World Project: Build a SaaS Dashboard that is perfectly usable on a 320px phone screen and expands into a multi-column layout on 4K monitors.", "expectedConcepts": ["Media Queries", "Mobile-First Design", "Responsive Units"] } },
+        { "id": "week-24", "week": 24, "title": "CSS Animations", "assignment": { "prompt": "Real-World Project: Build a highly interactive loading sequence (spinner, progress bar, success checkmark) using keyframes and hardware-accelerated CSS properties (transform/opacity).", "expectedConcepts": ["Keyframes", "Transitions", "Hardware Acceleration"] } },
+        { "id": "week-25", "week": 25, "title": "HTTP Fundamentals", "assignment": { "prompt": "Real-World Project: Write a raw TCP client in Python that manually constructs an HTTP GET request, sends it to a server, and parses the raw HTTP response headers.", "expectedConcepts": ["TCP/IP", "HTTP Headers", "Status Codes"] } },
+        { "id": "week-26", "week": 26, "title": "REST API Design", "assignment": { "prompt": "Real-World Project: Design a comprehensive OpenAPI/Swagger specification for a Ride-Sharing app (Uber clone), detailing endpoints for Users, Drivers, and Trips.", "expectedConcepts": ["RESTful constraints", "API Design", "OpenAPI Spec"] } },
+        { "id": "week-27", "week": 27, "title": "Node.js from Scratch", "assignment": { "prompt": "Real-World Project: Build a fully functional HTTP server using ONLY the native Node.js 'http' module (no Express) that serves HTML files and a JSON API.", "expectedConcepts": ["Node.js Core", "HTTP Module", "Streams"] } },
+        { "id": "week-28", "week": 28, "title": "Middleware & Routing", "assignment": { "prompt": "Real-World Project: Build your own mini-Express routing framework. It must support middleware chains (e.g., authentication -> logging -> controller) and route parameters.", "expectedConcepts": ["Middleware pattern", "Routing logic", "Request lifecycle"] } },
+        { "id": "week-29", "week": 29, "title": "SQL Fundamentals", "assignment": { "prompt": "Real-World Project: Write complex SQL queries for an E-commerce database to find 'Customers who bought item X but never bought item Y', utilizing JOINs and Subqueries.", "expectedConcepts": ["SQL Basics", "JOINs", "Subqueries"] } },
+        { "id": "week-30", "week": 30, "title": "DB Normalization", "assignment": { "prompt": "Real-World Project: Take a massive, unnormalized spreadsheet of Hospital Records and design a 3rd Normal Form (3NF) relational schema.", "expectedConcepts": ["Database Normalization", "Primary/Foreign Keys", "Schema Design"] } },
+        { "id": "week-31", "week": 31, "title": "PostgreSQL & Node.js", "assignment": { "prompt": "Real-World Project: Build a backend API for a Library system using Node.js and the 'pg' package. Implement robust connection pooling and SQL injection prevention (parameterized queries).", "expectedConcepts": ["PostgreSQL", "Connection Pooling", "Security"] } },
+        { "id": "week-32", "week": 32, "title": "Database Design", "assignment": { "prompt": "Real-World Project: Design the database architecture for a multi-tenant SaaS application (like Slack). Choose between shared database vs. isolated schemas and justify it.", "expectedConcepts": ["Multi-tenancy", "Scalability", "Architecture"] } },
+        { "id": "week-33", "week": 33, "title": "Express.js", "assignment": { "prompt": "Real-World Project: Build a production-ready Express API for a blogging platform. Include error handling middleware, request validation using Zod, and rate limiting.", "expectedConcepts": ["Express.js", "Validation", "Rate Limiting"] } },
+        { "id": "week-34", "week": 34, "title": "React Fundamentals", "assignment": { "prompt": "Real-World Project: Build a Cryptocurrency Tracker in React. Use functional components and state to display live prices fetching from an external API.", "expectedConcepts": ["React Components", "JSX", "State management"] } },
+        { "id": "week-35", "week": 35, "title": "React Hooks", "assignment": { "prompt": "Real-World Project: Build a complex multi-step Checkout Form. Create custom hooks like 'useLocalStorage' to persist form data and 'useForm' to handle validation logic.", "expectedConcepts": ["Custom Hooks", "useEffect", "Context API"] } },
+        { "id": "week-36", "week": 36, "title": "Fullstack Integration", "assignment": { "prompt": "Real-World Project: Connect your React Frontend to your Express/Postgres backend to build a complete Real Estate listing platform with filtering and search.", "expectedConcepts": ["CORS", "API Integration", "Fullstack debugging"] } },
+        { "id": "week-37", "week": 37, "title": "JWT Auth", "assignment": { "prompt": "Real-World Project: Implement secure JWT authentication from scratch. Generate tokens on login, store them securely in HttpOnly cookies, and protect specific API routes.", "expectedConcepts": ["JWT", "HttpOnly Cookies", "Authentication flow"] } },
+        { "id": "week-38", "week": 38, "title": "OAuth Basics", "assignment": { "prompt": "Real-World Project: Add 'Login with Google' and 'Login with GitHub' to your application using the standard OAuth 2.0 flow (without using a heavy library like Passport initially).", "expectedConcepts": ["OAuth 2.0", "Third-party identity", "Callback URLs"] } },
+        { "id": "week-39", "week": 39, "title": "Web Security", "assignment": { "prompt": "Real-World Project: Conduct a security audit on a intentionally vulnerable web app. Identify and patch XSS, CSRF, and SQL Injection vulnerabilities.", "expectedConcepts": ["XSS", "CSRF", "Security Headers (Helmet)"] } },
+        { "id": "week-40", "week": 40, "title": "Third-party APIs", "assignment": { "prompt": "Real-World Project: Integrate Stripe Checkout for payments and AWS S3 (via presigned URLs) for profile picture uploads.", "expectedConcepts": ["Stripe API", "AWS S3", "Webhooks"] } },
+        { "id": "week-41", "week": 41, "title": "Web Performance", "assignment": { "prompt": "Real-World Project: Take a bloated React application and optimize it using Code Splitting (React.lazy), Memoization (useMemo), and image optimization to achieve a 90+ Lighthouse score.", "expectedConcepts": ["Performance Profiling", "Code Splitting", "Memoization"] } },
+        { "id": "week-42", "week": 42, "title": "Three.js Basics", "assignment": { "prompt": "Real-World Project: Build an interactive 3D landing page hero section. Render a 3D Earth that rotates based on the user's scroll position.", "expectedConcepts": ["WebGL", "Three.js Setup", "Scroll Animations"] } },
+        { "id": "week-43", "week": 43, "title": "Three.js: Materials", "assignment": { "prompt": "Real-World Project: Build a 3D Car Configurator. Allow users to change the paint color (metallic vs matte) and rims using advanced PBR materials and environment maps.", "expectedConcepts": ["PBR Materials", "Environment Maps", "Lighting"] } },
+        { "id": "week-44", "week": 44, "title": "Three.js: Animations", "assignment": { "prompt": "Phase 2 Final Project: Build a fully functional 3D Web Portfolio. Navigate through a 3D museum of your projects using Raycasting for interaction and Tween.js for camera movement.", "expectedConcepts": ["Raycasting", "Tweening", "Complex 3D scenes"] } }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "title": "IoT & Embedded Systems",
+      "description": "From zero electronics knowledge to cloud-connected IoT systems.",
+      "duration": "Months 12–16",
+      "modules": [
+        { "id": "week-45", "week": 45, "title": "Electronics Basics", "assignment": { "prompt": "Real-World Project (Wokwi): Design a fail-safe relay circuit where two separate buttons must be pressed simultaneously to activate a high-power LED, demonstrating AND logic in hardware.", "expectedConcepts": ["Ohm's Law", "Hardware Logic", "Current Limiting"] } },
+        { "id": "week-46", "week": 46, "title": "Sensors (DHT22)", "assignment": { "prompt": "Real-World Project (Wokwi): Write a robust sensor driver that reads the DHT22. It must include error handling for NaN values and implement a 'Moving Average' filter to smooth out sudden temperature spikes.", "expectedConcepts": ["Digital Signals", "Data Smoothing", "Error Handling"] } },
+        { "id": "week-47", "week": 47, "title": "Actuators (Servos)", "assignment": { "prompt": "Real-World Project (Wokwi): Build a 'Smart Blinds' prototype. Map a Light Dependent Resistor (simulated via pot) to a servo. As the light gets brighter, the servo automatically closes the blinds smoothly.", "expectedConcepts": ["PWM", "Analog to Digital Conversion", "Signal Mapping"] } },
+        { "id": "week-48", "week": 48, "title": "Circuit Diagrams", "assignment": { "prompt": "Real-World Project: Draw a professional schematic for an automated plant watering system (ESP32, Soil Sensor, Water Pump) adhering to industry standards (VCC up, GND down, proper net labels).", "expectedConcepts": ["Schematic Design", "Standard Symbols", "Net Labels"] } },
+        { "id": "week-49", "week": 49, "title": "Arduino Basics", "assignment": { "prompt": "Real-World Project (Wokwi): Write a 'Breathing LED' script that perfectly mimics the sleep indicator of an old Macbook using sine wave math and PWM, without using the delay() function.", "expectedConcepts": ["Arduino Framework", "PWM fading", "Non-blocking code"] } },
+        { "id": "week-50", "week": 50, "title": "ESP32: Wi-Fi", "assignment": { "prompt": "Real-World Project (Wokwi): Build a highly resilient Wi-Fi connection manager. It must attempt to connect, and if it fails after 10 seconds, it should gracefully fall back to creating its own Access Point (AP mode).", "expectedConcepts": ["ESP32 Wi-Fi", "AP Mode", "Connection resilience"] } },
+        { "id": "week-51", "week": 51, "title": "Interrupts & Timers", "assignment": { "prompt": "Real-World Project: Build a precise RPM counter for a motor. Use an External Hardware Interrupt to count rotations and a Hardware Timer to calculate and print the RPM exactly every 1.000 seconds.", "expectedConcepts": ["ISRs", "Hardware Timers", "Debouncing"] } },
+        { "id": "week-52", "week": 52, "title": "Multi-sensor Dashboard", "assignment": { "prompt": "Real-World Project: Build an Industrial Monitoring Panel. Read 3 sensors asynchronously, prioritize critical alarms (Interrupts), and display the data on an I2C OLED without the screen flickering.", "expectedConcepts": ["Task scheduling", "I2C Displays", "System Integration"] } },
+        { "id": "week-53", "week": 53, "title": "UART Communication", "assignment": { "prompt": "Real-World Project: Program two microcontrollers to act as a secure vault system. MCU 1 reads a keypad and sends an encrypted UART payload to MCU 2, which validates it and opens a lock.", "expectedConcepts": ["UART Protocol", "Baud rates", "Payload parsing"] } },
+        { "id": "week-54", "week": 54, "title": "I2C Protocol", "assignment": { "prompt": "Real-World Project: Build a weather station that reads from an I2C BME280 (Temp/Pressure) and an I2C BH1750 (Light) simultaneously, handling potential bus collision errors gracefully.", "expectedConcepts": ["I2C Bus", "Addressing", "Multiple devices"] } },
+        { "id": "week-55", "week": 55, "title": "SPI Protocol", "assignment": { "prompt": "Real-World Project: Build a High-Speed Flight Data Recorder. Log accelerometer data to an SD card via SPI at 100Hz, ensuring file buffer flushes prevent data loss on sudden power failure.", "expectedConcepts": ["SPI Protocol", "SD Card Logging", "Buffer management"] } },
+        { "id": "week-56", "week": 56, "title": "MQTT Protocol", "assignment": { "prompt": "Real-World Project: Build a 'Smart Fleet' tracker. The ESP32 must publish its status to an MQTT broker. Implement a 'Last Will and Testament' so the dashboard instantly knows if the tracker goes offline.", "expectedConcepts": ["MQTT Pub/Sub", "Quality of Service", "Last Will"] } },
+        { "id": "week-57", "week": 57, "title": "Microcontroller HTTP", "assignment": { "prompt": "Real-World Project: Build an ESP32 Crypto Ticker. It must make an HTTPS GET request to the CoinGecko API, verify the SSL certificate fingerprint, parse the JSON, and display the Bitcoin price.", "expectedConcepts": ["HTTPS", "SSL Certificates", "JSON Parsing on MCU"] } },
+        { "id": "week-58", "week": 58, "title": "Firebase RTDB", "assignment": { "prompt": "Real-World Project: Build a 'Smart Switch'. The ESP32 must subscribe to a Firebase RTDB stream. When you toggle a button on your phone, the ESP32 must react instantly (under 200ms).", "expectedConcepts": ["Firebase RTDB", "Real-time Streams", "Device actuation"] } },
+        { "id": "week-59", "week": 59, "title": "Real-time Dashboard", "assignment": { "prompt": "Real-World Project: Build a Next.js command center for your IoT devices. It must display live graphs of Firebase data using Recharts and allow the user to send configuration updates back to the ESP32.", "expectedConcepts": ["Next.js Integration", "Data Visualization", "Bi-directional IoT"] } },
+        { "id": "week-60", "week": 60, "title": "Alerts & Notifications", "assignment": { "prompt": "Real-World Project: Build an Early-Warning Flood Detection system. If the water sensor triggers, a Next.js API route must immediately dispatch a high-priority alert to your phone via a Telegram Bot.", "expectedConcepts": ["Serverless Functions", "Webhooks", "Telegram API"] } },
+        { "id": "week-61", "week": 61, "title": "OTA Updates", "assignment": { "prompt": "Real-World Project: Implement an OTA Update Server. The ESP32 checks a version endpoint on boot. If a newer firmware exists, it downloads it securely over HTTPS, verifies it, and reboots.", "expectedConcepts": ["OTA Updates", "Firmware versioning", "Partition Tables"] } },
+        { "id": "week-62", "week": 62, "title": "Power Management", "assignment": { "prompt": "Real-World Project: Build a Solar-Powered Remote Weather Station. Utilize ESP32 Deep Sleep to drop power draw to 10uA, waking up only once an hour to transmit data, calculating a 5-year battery life.", "expectedConcepts": ["Deep Sleep", "RTC Memory", "Power Profiling"] } },
+        { "id": "week-63", "week": 63, "title": "IoT System Design", "assignment": { "prompt": "Real-World Project: Architect a Smart City Waste Management system (10,000 bins). Deliver a whitepaper detailing your choice of network (LoRaWAN vs Cellular), database scaling strategy, and edge intelligence.", "expectedConcepts": ["System Architecture", "Network Selection", "Scalability"] } },
+        { "id": "week-64", "week": 64, "title": "System Integration", "assignment": { "prompt": "Phase 3 Final Project: Build a commercial-grade IoT product. It must include: Hardware Watchdogs, Offline Data Syncing, Over-the-Air updates, and a fully polished Next.js user dashboard.", "expectedConcepts": ["Hardware Watchdogs", "Offline Syncing", "End-to-End Product"] } }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "title": "Game Development",
+      "description": "Build games from scratch — understand game loops, physics, 3D.",
+      "duration": "Months 17–18",
+      "modules": [
+        { "id": "week-65", "week": 65, "title": "Game Loops", "assignment": { "prompt": "Real-World Project: Build a frame-rate independent physics engine core in JS. Prove that a ball drops at the exact same speed whether the loop is artificially throttled to 15 FPS or runs at 144 FPS.", "expectedConcepts": ["Delta Time", "Game Loops", "RequestAnimationFrame"] } },
+        { "id": "week-66", "week": 66, "title": "2D Collision (AABB)", "assignment": { "prompt": "Real-World Project: Build a 'Bullet Hell' avoidance game. Implement Spatial Partitioning (Grid) so the game can smoothly calculate collisions for 5,000 simultaneous bullets without dropping frames.", "expectedConcepts": ["AABB Collision", "Spatial Partitioning", "Performance Optimization"] } },
+        { "id": "week-67", "week": 67, "title": "Input & States", "assignment": { "prompt": "Real-World Project: Build a complex Player Controller using a Finite State Machine. Implement 'Input Buffering' and 'Coyote Time' to make platforming jumps feel incredibly responsive and fair.", "expectedConcepts": ["Finite State Machines", "Input Buffering", "Game Feel"] } },
+        { "id": "week-68", "week": 68, "title": "2D Physics", "assignment": { "prompt": "Real-World Project: Build an 'Angry Birds' style slingshot mechanic. Use Verlet Integration to simulate a realistic, stable rope/elastic band that pulls a physics body.", "expectedConcepts": ["Euler vs Verlet Integration", "Impulse", "Elasticity"] } },
+        { "id": "week-69", "week": 69, "title": "Three.js Game Setup", "assignment": { "prompt": "Real-World Project: Build an interactive 3D Solar System. Implement point lights for the sun, and accurately rotate planets and moons on their own distinct Z-axes using hierarchical scene graphs.", "expectedConcepts": ["Three.js Scene Graph", "Lighting", "3D Transformations"] } },
+        { "id": "week-70", "week": 70, "title": "3D Raycasting", "assignment": { "prompt": "Real-World Project: Build a 3D First-Person 'Escape Room'. Use raycasting against specific collision groups (not the whole scene) to prevent the player from walking through walls or falling out of bounds.", "expectedConcepts": ["Raycasting", "Collision Groups", "Camera Control"] } },
+        { "id": "week-71", "week": 71, "title": "Character Animation", "assignment": { "prompt": "Real-World Project: Implement a Third-Person Character Controller. Load a Mixamo GLTF model and seamlessly cross-fade animations from 'Idle' to 'Walk' to 'Run' based on the analog magnitude of user input.", "expectedConcepts": ["Skinned Meshes", "Animation Mixers", "Animation Blending"] } },
+        { "id": "week-72", "week": 72, "title": "Game Polish", "assignment": { "prompt": "Phase 4 Final Project: Release a polished 3D Web Game. It must feature spatial audio (Web Audio API), post-processing bloom effects, screen shake on impact, and optimized assets (Draco compression) loading under 3 seconds.", "expectedConcepts": ["Post-Processing", "Spatial Audio", "Asset Optimization"] } }
+      ]
+    },
+    {
+      "id": "phase-5",
+      "title": "Business & Freelancing",
+      "description": "Turn your skills into a sustainable income.",
+      "duration": "Month 19",
+      "modules": [
+        { "id": "week-73", "week": 73, "title": "Project Pricing", "assignment": { "prompt": "Real-World Project: Calculate your Minimum Viable Rate based on your specific life expenses. Then, write a 'Value-Based Pricing' pitch to convince a skeptical client why your $10,000 fee is a good investment.", "expectedConcepts": ["Value-Based Pricing", "Rate Calculation", "Scope Creep Protection"] } },
+        { "id": "week-74", "week": 74, "title": "Proposals & Contracts", "assignment": { "prompt": "Real-World Project: Draft a bulletproof Freelance Master Services Agreement (MSA). Ensure it explicitly defines IP ownership transfer ONLY upon final payment, and sets strict communication boundaries.", "expectedConcepts": ["Contract Law Basics", "IP Ownership", "Proposal Structuring"] } },
+        { "id": "week-75", "week": 75, "title": "Finding Clients", "assignment": { "prompt": "Real-World Project: Identify an underserved niche (e.g., local dental clinics). Build a targeted Case Study portfolio piece, and execute a cold outreach campaign via LinkedIn to 5 decision-makers.", "expectedConcepts": ["Niche Selection", "Inbound/Outbound Marketing", "Cold Outreach"] } },
+        { "id": "week-76", "week": 76, "title": "Financial Management", "assignment": { "prompt": "Phase 5 Final Project: Set up a comprehensive Business Operating System. Establish separate banking, a tax-withholding automation rule (30%), and build a 12-month financial runway projection spreadsheet.", "expectedConcepts": ["Business Finance", "Tax Planning", "Runway Projection"] } }
+      ]
+    }
+  ]
+}
