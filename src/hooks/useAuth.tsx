@@ -28,13 +28,34 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setFirebaseUser(fUser);
       
       if (fUser) {
-        // Fetch custom user data from Firestore
-        const userDoc = await getDoc(doc(db, "users", fUser.uid));
-        if (userDoc.exists()) {
-          setUser(userDoc.data() as User);
-        } else {
-          // Initialize new user in Firestore if not exists
-          const newUser: User = {
+        try {
+          // Fetch custom user data from Firestore
+          const userDoc = await getDoc(doc(db, "users", fUser.uid));
+          if (userDoc.exists()) {
+            setUser(userDoc.data() as User);
+          } else {
+            // Initialize new user in Firestore if not exists
+            const newUser: User = {
+              uid: fUser.uid,
+              name: fUser.displayName || "Learner",
+              email: fUser.email || "",
+              startDate: new Date().toISOString(),
+              currentPhase: "phase-0",
+              currentModule: "week-1",
+              passedModules: [],
+              streak: 0,
+              longestStreak: 0,
+              lastSessionDate: new Date().toISOString(),
+              totalSessionsCompleted: 0,
+              totalAssignmentsAttempted: 0,
+            };
+            await setDoc(doc(db, "users", fUser.uid), newUser);
+            setUser(newUser);
+          }
+        } catch (error) {
+          console.error("Error fetching/initializing user in Firestore:", error);
+          // Fallback to local state if Firestore is unreachable
+          setUser({
             uid: fUser.uid,
             name: fUser.displayName || "Learner",
             email: fUser.email || "",
@@ -47,9 +68,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             lastSessionDate: new Date().toISOString(),
             totalSessionsCompleted: 0,
             totalAssignmentsAttempted: 0,
-          };
-          await setDoc(doc(db, "users", fUser.uid), newUser);
-          setUser(newUser);
+          });
         }
       } else {
         setUser(null);
