@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { GraduationCap, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -36,10 +37,10 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="absolute top-8 left-8 flex items-center gap-2">
-        <GraduationCap className="h-8 w-8 text-accent-primary" />
+      <Link href="/" className="absolute top-8 left-8 flex items-center gap-2 hover:opacity-85 transition-opacity">
+        <Logo className="h-8 w-8" />
         <span className="text-2xl font-bold tracking-tight">Creatives<span className="text-accent-primary">Academy</span></span>
-      </div>
+      </Link>
 
       <Card className="w-full max-w-md border-border/50 bg-card/50 backdrop-blur-sm">
         <CardHeader className="space-y-1">

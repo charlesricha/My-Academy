@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Outfit, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
+      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} dark h-full antialiased`}
       style={{ colorScheme: 'dark' }}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">

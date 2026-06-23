@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
+import { Logo } from "@/components/ui/logo";
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
@@ -51,12 +52,15 @@ export function Sidebar() {
         collapsed ? "w-20" : "w-64"
       )}
     >
-      <div className="flex h-16 items-center justify-between px-6 border-b border-border">
-        {!collapsed && (
-          <span className="text-xl font-bold tracking-tight">
-            Creatives<span className="text-accent-primary">Aca</span>
-          </span>
-        )}
+      <div className="flex h-16 items-center justify-between px-4 border-b border-border">
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <Logo className="h-7 w-7" />
+          {!collapsed && (
+            <span className="text-lg font-bold tracking-tight whitespace-nowrap">
+              Creatives<span className="text-accent-primary">Academy</span>
+            </span>
+          )}
+        </Link>
         <button 
           onClick={() => setCollapsed(!collapsed)}
           className="p-1 hover:bg-muted rounded-md transition-colors"

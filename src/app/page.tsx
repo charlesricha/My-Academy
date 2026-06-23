@@ -1,14 +1,26 @@
 import Link from "next/link";
-import { ArrowRight, Code, Cpu, Gamepad2, GraduationCap } from "lucide-react";
+import { ArrowRight, Code, Cpu, Gamepad2 } from "lucide-react";
+import { Logo } from "@/components/ui/logo";
 
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-20 text-center">
-        <div className="mb-6 inline-flex items-center rounded-full bg-accent-primary/10 px-3 py-1 text-sm font-medium text-accent-primary ring-1 ring-inset ring-accent-primary/20">
-          <GraduationCap className="mr-2 h-4 w-4" />
-          <span>The 18-Month Engineering Journey</span>
+        {/* Brand Logo Header */}
+        <div className="mb-6 flex justify-center">
+          <div className="p-4 rounded-3xl bg-card border border-border shadow-[0_0_50px_rgba(99,102,241,0.15)] hover:scale-105 transition-transform duration-300">
+            <Logo className="h-16 w-16" />
+          </div>
+        </div>
+
+        {/* Sleek Top Accent Header (replacing AI pill bubble) */}
+        <div className="mb-8 flex items-center justify-center gap-3">
+          <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-accent-primary/60" />
+          <span className="text-xs font-bold tracking-[0.25em] uppercase text-accent-secondary">
+            The 18-Month Engineering Journey
+          </span>
+          <span className="h-[1px] w-8 bg-gradient-to-l from-transparent to-accent-primary/60" />
         </div>
         
         <h1 className="mb-6 text-5xl md:text-7xl font-bold tracking-tight">
