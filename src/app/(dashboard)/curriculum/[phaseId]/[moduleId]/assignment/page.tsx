@@ -27,6 +27,7 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
   const [code, setCode] = useState("// Write your code here\n");
   const [explanation, setExplanation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<{
     score: number;
     passed: boolean;
@@ -103,6 +104,7 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
     if (!user) return;
     setIsSubmitting(true);
     setResult(null);
+    setError(null);
 
     try {
       const response = await fetch("/api/grade", {
@@ -118,38 +120,46 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
         }),
       });
 
-      if (!response.ok) throw new Error("Grading failed");
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || "Grading request failed");
+      }
       
       const data = await response.json();
       setResult(data);
       
-      // Update user stats in Firestore
-      const userRef = doc(db, "users", user.uid);
-      const updates: any = {
-        totalAssignmentsAttempted: increment(1),
-        lastSessionDate: new Date().toISOString(),
-      };
+      // Update user stats in Firestore (wrapped in try-catch so it won't crash if Firestore rules are locked)
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const updates: any = {
+          totalAssignmentsAttempted: increment(1),
+          lastSessionDate: new Date().toISOString(),
+        };
 
-      // If passed, update passedModules and currentModule
-      if (data.passed) {
-        updates.passedModules = arrayUnion(moduleId);
-        updates.totalSessionsCompleted = increment(1);
+        // If passed, update passedModules and currentModule
+        if (data.passed) {
+          updates.passedModules = arrayUnion(moduleId);
+          updates.totalSessionsCompleted = increment(1);
 
-        // If this was the current module, advance to next
-        if (user.currentModule === moduleId) {
-          const nextModule = getNextModule(moduleId);
-          if (nextModule) {
-            updates.currentModule = nextModule.id;
+          // If this was the current module, advance to next
+          if (user.currentModule === moduleId) {
+            const nextModule = getNextModule(moduleId);
+            if (nextModule) {
+              updates.currentModule = nextModule.id;
+            }
           }
         }
-      }
 
-      await updateDoc(userRef, updates);
+        await updateDoc(userRef, updates);
+      } catch (dbError) {
+        console.error("Failed to update user stats in Firestore:", dbError);
+      }
       
       // Refresh submissions history
       fetchSubmissions();
-    } catch (error) {
-      console.error("Submission failed:", error);
+    } catch (err: any) {
+      console.error("Submission failed:", err);
+      setError(err.message || "Failed to submit assignment. Please verify your Gemini API key and quota limits.");
     } finally {
       setIsSubmitting(false);
     }
@@ -227,23 +237,30 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
           </div>
 
           {!result ? (
-            <Button 
-              className="w-full h-12 bg-accent-primary hover:bg-accent-primary/90 text-lg font-bold shadow-lg shadow-accent-primary/20"
-              onClick={handleSubmit}
-              disabled={isSubmitting || !code.trim() || !explanation.trim()}
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  AI is Grading...
-                </>
-              ) : (
-                <>
-                  Submit to Gemini
-                  <Send className="ml-2 h-5 w-5" />
-                </>
+            <div className="space-y-4">
+              {error && (
+                <div className="p-4 rounded-lg bg-accent-danger/10 border border-accent-danger/20 text-accent-danger text-sm font-medium animate-in fade-in duration-300">
+                  {error}
+                </div>
               )}
-            </Button>
+              <Button 
+                className="w-full h-12 bg-accent-primary hover:bg-accent-primary/90 text-lg font-bold shadow-lg shadow-accent-primary/20"
+                onClick={handleSubmit}
+                disabled={isSubmitting || !code.trim() || !explanation.trim()}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    AI is Grading...
+                  </>
+                ) : (
+                  <>
+                    Submit to Gemini
+                    <Send className="ml-2 h-5 w-5" />
+                  </>
+                )}
+              </Button>
+            </div>
           ) : (
             <Card className={cn(
               "animate-in zoom-in-95 duration-300",
