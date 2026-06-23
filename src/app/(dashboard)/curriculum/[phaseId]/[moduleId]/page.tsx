@@ -134,9 +134,11 @@ export default function ModuleViewerPage({ params }: { params: Promise<{ phaseId
                   <Loader2 className="h-8 w-8 animate-spin text-accent-primary" />
                 </div>
               ) : (
-                <ReactMarkdown className="markdown-content">
-                  {content || "# Notes Coming Soon\n\nWe are currently finalizing the notes for this module. In the meantime, please refer to the external resources and the assignment prompt."}
-                </ReactMarkdown>
+                <div className="markdown-content">
+                  <ReactMarkdown>
+                    {content || "# Notes Coming Soon\n\nWe are currently finalizing the notes for this module. In the meantime, please refer to the external resources and the assignment prompt."}
+                  </ReactMarkdown>
+                </div>
               )}
             </div>
           </CardContent>

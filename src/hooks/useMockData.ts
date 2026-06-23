@@ -12,6 +12,8 @@ export const mockUser: User = {
   longestStreak: 12,
   lastSessionDate: new Date().toISOString(),
   totalSessionsCompleted: 15,
+  passedModules: [],
+  totalAssignmentsAttempted: 0,
 };
 
 export const getPhases = (): Phase[] => {

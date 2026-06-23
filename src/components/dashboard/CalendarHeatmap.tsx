@@ -55,17 +55,19 @@ export function CalendarHeatmap({ completedDates }: HeatmapProps) {
 
             return (
               <Tooltip key={dateStr}>
-                <TooltipTrigger asChild>
-                  <div
-                    className={cn(
-                      "w-3 h-3 rounded-sm transition-colors",
-                      isCompleted 
-                        ? "bg-accent-primary shadow-[0_0_8px_rgba(108,99,255,0.4)]" 
-                        : "bg-muted hover:bg-muted/80",
-                      isToday && "ring-1 ring-accent-secondary ring-offset-1 ring-offset-background"
-                    )}
-                  />
-                </TooltipTrigger>
+                <TooltipTrigger
+                  render={
+                    <div
+                      className={cn(
+                        "w-3 h-3 rounded-sm transition-colors",
+                        isCompleted 
+                          ? "bg-accent-primary shadow-[0_0_8px_rgba(108,99,255,0.4)]" 
+                          : "bg-muted hover:bg-muted/80",
+                        isToday && "ring-1 ring-accent-secondary ring-offset-1 ring-offset-background"
+                      )}
+                    />
+                  }
+                />
                 <TooltipContent side="top" className="text-[10px] p-2">
                   <p className="font-bold">{format(day, "MMM d, yyyy")}</p>
                   <p>{isCompleted ? "Session completed" : "No session logged"}</p>
