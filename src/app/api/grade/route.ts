@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       throw new Error("GEMINI_API_KEY is not configured on the server.");
     }
 
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
       Act as a strict but fair senior software engineering mentor.
