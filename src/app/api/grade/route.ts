@@ -61,6 +61,10 @@ export async function POST(req: NextRequest) {
     let gradedResult;
     try {
       gradedResult = JSON.parse(jsonStr);
+      // Enforce passmark check in the backend
+      if (typeof gradedResult.score === "number") {
+        gradedResult.passed = gradedResult.score >= 70;
+      }
     } catch (parseError) {
       console.error("Failed to parse Gemini JSON output. Raw text:", text);
       throw new Error("Failed to parse grading response from AI. Please try again.");

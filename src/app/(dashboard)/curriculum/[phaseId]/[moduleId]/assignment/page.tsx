@@ -115,6 +115,7 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
       createdDocRef = await addDoc(submissionsRef, {
         score: 0,
         passed: false,
+        status: "grading",
         feedback: "Grading in progress...",
         improvements: [],
         attemptNumber,
@@ -148,6 +149,12 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
       }
       
       const data = await response.json();
+      
+      // Enforce passmark check in client
+      if (typeof data.score === "number") {
+        data.passed = data.score >= 70;
+      }
+      
       setResult(data);
       
       // 2. Update the created submission document with grading results
@@ -156,6 +163,7 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
           await updateDoc(createdDocRef, {
             score: data.score,
             passed: data.passed,
+            status: "completed",
             feedback: data.feedback,
             improvements: data.improvements || []
           });
@@ -204,6 +212,8 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
           await updateDoc(createdDocRef, {
             score: 0,
             passed: false,
+            status: "failed",
+            gradingError: true,
             feedback: `Grading request failed: ${errorMessage}`,
             improvements: ["Check your Gemini API key and connection.", "Retry grading your submission."]
           });
@@ -386,32 +396,59 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
           </div>
         ) : submissions.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {submissions.map((sub) => (
-              <Card key={sub.id} className="border-border/50 bg-card/50 hover:bg-card transition-colors">
-                <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <Badge variant={sub.passed ? "outline" : "destructive"} className={cn(
-                      sub.passed ? "border-accent-success text-accent-success bg-accent-success/5" : ""
-                    )}>
-                      {sub.passed ? "Passed" : "Failed"}
-                    </Badge>
-                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                      <Clock className="h-3 w-3" />
-                      {sub.timestamp ? format(sub.timestamp.toDate(), "MMM d, h:mm a") : "Just now"}
-                    </span>
-                  </div>
-                  <CardTitle className="text-lg mt-2 flex items-center justify-between">
-                    <span>Attempt #{sub.attemptNumber}</span>
-                    <span className="text-2xl font-bold">{sub.score}</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-3 italic">
-                    "{sub.feedback}"
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+            {submissions.map((sub) => {
+              const isGrading = sub.status === "grading" || sub.feedback === "Grading in progress...";
+              const isError = sub.status === "failed" || sub.gradingError;
+
+              return (
+                <Card key={sub.id} className="border-border/50 bg-card/50 hover:bg-card transition-colors">
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between">
+                      {isGrading ? (
+                        <Badge variant="secondary" className="flex items-center gap-1 bg-accent-warning/10 text-accent-warning border border-accent-warning/20">
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                          Grading...
+                        </Badge>
+                      ) : isError ? (
+                        <Badge variant="destructive" className="bg-accent-danger/10 text-accent-danger border border-accent-danger/20">
+                          Grading Error
+                        </Badge>
+                      ) : (
+                        <Badge 
+                          variant={sub.passed ? "outline" : "destructive"} 
+                          className={cn(
+                            sub.passed ? "border-accent-success text-accent-success bg-accent-success/5" : ""
+                          )}
+                        >
+                          {sub.passed ? "Passed" : "Failed"}
+                        </Badge>
+                      )}
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {sub.timestamp ? format(sub.timestamp.toDate(), "MMM d, h:mm a") : "Just now"}
+                      </span>
+                    </div>
+                    <CardTitle className="text-lg mt-2 flex items-center justify-between">
+                      <span>Attempt #{sub.attemptNumber}</span>
+                      <span className="text-2xl font-bold">
+                        {isGrading ? (
+                          <span className="text-muted-foreground text-sm font-normal">pending</span>
+                        ) : isError ? (
+                          "—"
+                        ) : (
+                          sub.score
+                        )}
+                      </span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground line-clamp-3 italic">
+                      "{sub.feedback}"
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         ) : (
           <div className="text-center p-12 bg-muted/20 rounded-xl border border-dashed border-border/50">
