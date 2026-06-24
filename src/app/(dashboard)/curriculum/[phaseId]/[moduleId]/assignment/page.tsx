@@ -13,13 +13,13 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { useProgress } from "@/hooks/useProgress";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, orderBy, doc, updateDoc, arrayUnion, increment, addDoc } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, doc, updateDoc, arrayUnion, increment, addDoc, setDoc } from "firebase/firestore";
 import { format } from "date-fns";
 import { getNextModule } from "@/lib/curriculum";
 
 export default function AssignmentPage({ params }: { params: Promise<{ phaseId: string, moduleId: string }> }) {
   const { phaseId, moduleId } = use(params);
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const { isModuleUnlocked } = useProgress();
   const phase = getPhase(phaseId);
   const module = getModule(phaseId, moduleId);
@@ -194,7 +194,8 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
           }
         }
 
-        await updateDoc(userRef, updates);
+        await setDoc(userRef, updates, { merge: true });
+        await refreshUser();
       } catch (dbError) {
         console.error("Failed to update user stats in Firestore:", dbError);
       }

@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { db } from "@/lib/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { differenceInCalendarDays } from "date-fns";
 
 export default function ModuleViewerPage({ params }: { params: Promise<{ phaseId: string, moduleId: string }> }) {
@@ -20,7 +20,7 @@ export default function ModuleViewerPage({ params }: { params: Promise<{ phaseId
   const { isModuleUnlocked } = useProgress();
   const phase = getPhase(phaseId);
   const module = getModule(phaseId, moduleId);
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
   const router = useRouter();
   
   const [content, setContent] = useState<string | null>(null);
@@ -48,11 +48,12 @@ export default function ModuleViewerPage({ params }: { params: Promise<{ phaseId
         }
 
         const userRef = doc(db, "users", user.uid);
-        await updateDoc(userRef, {
+        await setDoc(userRef, {
           streak: newStreak,
           longestStreak: newLongestStreak,
           lastSessionDate: today.toISOString(),
-        });
+        }, { merge: true });
+        await refreshUser();
       } catch (error) {
         console.error("Failed to update streak:", error);
       }
