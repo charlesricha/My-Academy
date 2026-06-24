@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   try {
     const { assignmentPrompt, expectedConcepts, userCode, userExplanation, uid, moduleId } = await req.json();
 
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
     const prompt = `
       Act as a strict but fair senior software engineering mentor.
