@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 import { useProgress } from "@/hooks/useProgress";
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, orderBy, doc, updateDoc, arrayUnion, increment } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, doc, updateDoc, arrayUnion, increment, addDoc } from "firebase/firestore";
 import { format } from "date-fns";
 import { getNextModule } from "@/lib/curriculum";
 
@@ -106,6 +106,28 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
     setResult(null);
     setError(null);
 
+    let createdDocRef = null;
+    const attemptNumber = submissions.length + 1;
+
+    // 1. Create the submission document BEFORE grading starts (wrapped in try-catch so it won't crash if Firestore rules are locked)
+    try {
+      const submissionsRef = collection(db, "submissions", user.uid, moduleId);
+      createdDocRef = await addDoc(submissionsRef, {
+        score: 0,
+        passed: false,
+        feedback: "Grading in progress...",
+        improvements: [],
+        attemptNumber,
+        timestamp: new Date(),
+        userCode: code,
+        userExplanation: explanation
+      });
+      // Refresh submissions list to show the "Grading in progress..." attempt
+      fetchSubmissions();
+    } catch (dbError) {
+      console.error("Failed to create initial submission document in Firestore:", dbError);
+    }
+
     try {
       const response = await fetch("/api/grade", {
         method: "POST",
@@ -128,7 +150,21 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
       const data = await response.json();
       setResult(data);
       
-      // Update user stats in Firestore (wrapped in try-catch so it won't crash if Firestore rules are locked)
+      // 2. Update the created submission document with grading results
+      if (createdDocRef) {
+        try {
+          await updateDoc(createdDocRef, {
+            score: data.score,
+            passed: data.passed,
+            feedback: data.feedback,
+            improvements: data.improvements || []
+          });
+        } catch (dbError) {
+          console.error("Failed to update submission document with grading results:", dbError);
+        }
+      }
+
+      // 3. Update user stats in Firestore
       try {
         const userRef = doc(db, "users", user.uid);
         const updates: any = {
@@ -159,7 +195,25 @@ export default function AssignmentPage({ params }: { params: Promise<{ phaseId: 
       fetchSubmissions();
     } catch (err: any) {
       console.error("Submission failed:", err);
-      setError(err.message || "Failed to submit assignment. Please verify your Gemini API key and quota limits.");
+      const errorMessage = err.message || "Failed to submit assignment. Please verify your Gemini API key and quota limits.";
+      setError(errorMessage);
+
+      // 4. Update the created submission document with failure details
+      if (createdDocRef) {
+        try {
+          await updateDoc(createdDocRef, {
+            score: 0,
+            passed: false,
+            feedback: `Grading request failed: ${errorMessage}`,
+            improvements: ["Check your Gemini API key and connection.", "Retry grading your submission."]
+          });
+        } catch (dbError) {
+          console.error("Failed to update submission document with failure details:", dbError);
+        }
+      }
+
+      // Refresh submissions history to show the failure
+      fetchSubmissions();
     } finally {
       setIsSubmitting(false);
     }
