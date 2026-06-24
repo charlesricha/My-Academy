@@ -9,15 +9,56 @@ import { ChevronLeft, ChevronRight, ExternalLink, Video as VideoIcon, FileText, 
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { db } from "@/lib/firebase";
+import { doc, updateDoc } from "firebase/firestore";
+import { differenceInCalendarDays } from "date-fns";
 
 export default function ModuleViewerPage({ params }: { params: Promise<{ phaseId: string, moduleId: string }> }) {
   const { phaseId, moduleId } = use(params);
   const { isModuleUnlocked } = useProgress();
   const phase = getPhase(phaseId);
   const module = getModule(phaseId, moduleId);
+  const { user } = useAuth();
+  const router = useRouter();
   
   const [content, setContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const handleStartAssignment = async () => {
+    if (user) {
+      try {
+        const today = new Date();
+        const lastSession = user.lastSessionDate ? new Date(user.lastSessionDate) : null;
+        let newStreak = user.streak || 0;
+        let newLongestStreak = user.longestStreak || 0;
+
+        if (!lastSession) {
+          newStreak = 1;
+          newLongestStreak = 1;
+        } else {
+          const daysDiff = differenceInCalendarDays(today, lastSession);
+          if (daysDiff === 1) {
+            newStreak += 1;
+            newLongestStreak = Math.max(newLongestStreak, newStreak);
+          } else if (daysDiff > 1) {
+            newStreak = 1;
+          }
+        }
+
+        const userRef = doc(db, "users", user.uid);
+        await updateDoc(userRef, {
+          streak: newStreak,
+          longestStreak: newLongestStreak,
+          lastSessionDate: today.toISOString(),
+        });
+      } catch (error) {
+        console.error("Failed to update streak:", error);
+      }
+    }
+    router.push(`/curriculum/${phaseId}/${moduleId}/assignment`);
+  };
 
   useEffect(() => {
     async function loadContent() {
@@ -89,12 +130,13 @@ export default function ModuleViewerPage({ params }: { params: Promise<{ phaseId
           <span className="text-foreground font-medium">Week {module.week}</span>
         </div>
         
-        <Link href={`/curriculum/${phaseId}/${moduleId}/assignment`}>
-          <Button className="bg-accent-primary hover:bg-accent-primary/90">
-            Go to Assignment
-            <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
+        <Button 
+          onClick={handleStartAssignment}
+          className="bg-accent-primary hover:bg-accent-primary/90"
+        >
+          Go to Assignment
+          <ChevronRight className="ml-2 h-4 w-4" />
+        </Button>
       </div>
 
       {/* Header */}
@@ -186,12 +228,14 @@ export default function ModuleViewerPage({ params }: { params: Promise<{ phaseId
           <ChevronLeft className="mr-2 h-4 w-4" />
           Previous Week
         </Button>
-        <Link href={`/curriculum/${phaseId}/${moduleId}/assignment`}>
-          <Button variant="outline" className="border-accent-primary text-accent-primary hover:bg-accent-primary/5">
-            Start Assignment
-            <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
+        <Button 
+          onClick={handleStartAssignment}
+          variant="outline" 
+          className="border-accent-primary text-accent-primary hover:bg-accent-primary/5"
+        >
+          Start Assignment
+          <ChevronRight className="ml-2 h-4 w-4" />
+        </Button>
       </div>
     </div>
   );
