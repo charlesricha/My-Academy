@@ -56,7 +56,13 @@ export async function POST(req: NextRequest) {
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     const jsonStr = jsonMatch ? jsonMatch[0] : text;
     
-    const gradedResult = JSON.parse(jsonStr);
+    let gradedResult;
+    try {
+      gradedResult = JSON.parse(jsonStr);
+    } catch (parseError) {
+      console.error("Failed to parse Gemini JSON output. Raw text:", text);
+      throw new Error("Failed to parse grading response from AI. Please try again.");
+    }
 
     // Save to Firestore if uid and moduleId are provided
     if (uid && moduleId) {
@@ -89,10 +95,10 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(gradedResult);
-  } catch (error) {
+  } catch (error: any) {
     console.error("Gemini Grading Error:", error);
     return NextResponse.json(
-      { error: "Failed to grade assignment" },
+      { error: error.message || "Failed to grade assignment" },
       { status: 500 }
     );
   }
